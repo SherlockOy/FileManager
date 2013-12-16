@@ -41,8 +41,10 @@ public static void welcome(){
 	System.out.println("(2) stands for 'ListFile'");
 	System.out.println("(3) stands for 'CleanFile'");
 	System.out.println("(4) stands for 'RenFile'");
-	System.out.println("(5) stands for 'Search File By Name'");
-	System.out.println("(6) stands for 'Search File By Content'\n");
+	System.out.println("(5) stands for 'ScanFile");
+	System.out.println("(6) stands for 'Search File By Name'");
+	System.out.println("(7) stands for 'Search File By Content");
+	
 	System.out.println("now enter your choice, end with 'return' key...");
 }
 

@@ -10,10 +10,8 @@ public class ChooseFunction {
 
 		while (true) {
 			// TODO Auto-generated method stub
-
 			// 提示语，提示用户进行跳转
 			Utils.welcome();
-
 			// 接收键盘输入的指令，运用scanner类
 			Scanner sc = new Scanner(System.in);
 			int functionNum = sc.nextInt();
@@ -26,9 +24,7 @@ public class ChooseFunction {
 				Scanner dir = new Scanner(System.in);
 				String directory = dir.nextLine();
 				// 提示输入待查询内容
-				
-				ListType.inputJudge(directory);
-				
+				ListType.inputJudge(directory);				
 				break;
 			case 2:
 				//ListFile, 显示所有文件
@@ -65,22 +61,34 @@ public class ChooseFunction {
 				}
 				break;
 			case 5:
+				System.out.println("ScanFile,扫描文件系统内容上传数据库\n");
+				FunctionScanFile scanFile = new FunctionScanFile();
+				try {
+					scanFile.scanFile();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				break;
+			case 6:
 				System.out.println("RenFile, 按文件名搜索文件\n");
 				FunctionSearchByName searchByName = new FunctionSearchByName();
 				searchByName.functionSearchByName();
 				break;
-			case 6:
+			case 7:
 				System.out.println("RenFile, 按内容搜索文件\n");
 				FunctionSearchByContent searchByContent = new FunctionSearchByContent();
 				searchByContent.functionSearchByContent();
 				break;
+			
 			default:
 				System.out
 						.println("Error: Unknow command, please retry.");
 				break;
 			}
-
 		}
 	}
-
 }

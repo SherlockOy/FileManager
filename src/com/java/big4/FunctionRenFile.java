@@ -28,39 +28,42 @@ public class FunctionRenFile {
 				+ directory + "';";
 		ResultSet resultSet = statement.executeQuery(sqlstatement);
 
-		
-		//将目录文件下的文件对象都存入ArrayList对象files中
-		File path = new File(directory);
-		String str[] = path.list();
-		ArrayList<File> files = new ArrayList<File>();
-		for (int i = 0; i < path.list().length; i++) {
-			File f = new File(path, path.list()[i]);
-			files.add(f);
-		}
-		
+		// 数据库中找到FileKey的值之后和每个文件的那个值进行对比
+		while (resultSet.next()) {
 
-//数据库中找到FileKey的值之后和每个文件的那个值进行对比		
-		while(resultSet.next()){
-			String fk_db ="";
-			String fn_db ="";
-			
+			// 将目录文件下的文件对象都存入ArrayList对象files中，每次进入循环都会更新现有的files对象
+			File path = new File(directory);
+			String str[] = path.list();
+			ArrayList<File> files = new ArrayList<File>();
+			for (int i = 0; i < path.list().length; i++) {
+				File f = new File(path, path.list()[i]);
+				files.add(f);
+			}
+
+			String fk_db = "";
+			String fn_db = "";
+
 			fn_db = resultSet.getString("FileName");
 			fk_db = resultSet.getString("FileKey");
-			
-			for(int i = 0; i< files.size(); i++){
-				//取单个文件对象
+
+			for (int i = 0; i < files.size(); i++) {
+				// 取单个对象
 				Path fp = files.get(i).toPath();
-				BasicFileAttributes attrs = Files.readAttributes(fp, BasicFileAttributes.class);
+				BasicFileAttributes attrs = Files.readAttributes(fp,
+						BasicFileAttributes.class);
 				String fk_fs = attrs.fileKey().toString();
-				//如果数据库中的fk与文件系统中的fk相等，比较数据库中的文件名与文件系统中的文件名，若不相等，改名，相等，往下
-				if(fk_db.equals(fk_fs)){
+				// 如果数据库中的fk与文件系统中的fk相等，比较数据库中的文件名与文件系统中的文件名，若不相等，改名，相等，往下
+				if (fk_db.equals(fk_fs)) {
 					String fn_fs = files.get(i).getName();
-					if(!(fn_fs.equals(fn_db))){
-						System.out.println("According to the data in Database, change '"+fn_fs+"' to '"+fn_db+"'.");
-						File newFile = new File(directory+fn_db);
+					if (!(fn_fs.equals(fn_db))) {
+						System.out
+								.println("According to the data in Database, change '"
+										+ fn_fs + "' to '" + fn_db + "'.");
+						File newFile = new File(directory + fn_db);
 						files.get(i).renameTo(newFile);
+						// files.get(i) = newFile;
 					}
-				break;
+					break;
 				}
 			}
 		}
