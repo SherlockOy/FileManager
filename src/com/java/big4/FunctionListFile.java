@@ -92,17 +92,21 @@ public class FunctionListFile {
 			File path = new File(directory);
 			ArrayList<File> files = new ArrayList<File>();
 
+			//将目录下的文件存入files对象
 			for (int i = 0; i < path.list().length; i++) {
 				File f = new File(directory + path.list()[i]);
 				files.add(f);
 			}
 
+			//调用Utils类中的通配符，对输入的命令和每个文件的文件名进行模式匹配，若匹配成功，
+			//对匹配成功的文件和数据库中的记录进行比对，如果找到该记录，则输出该文件的详细信息
 			String targetName = filename;
 			System.out
 					.println("==============================================================");
 			for (int i = 0; i < files.size(); i++) {
 				String name = files.get(i).getName();
 				File f = files.get(i);
+				//模式匹配
 				boolean matchresult = Utils.wildcardMatch(targetName, name);
 				if (matchresult) {
 					for (int j = 0; j < fn_db.size(); j++) {
