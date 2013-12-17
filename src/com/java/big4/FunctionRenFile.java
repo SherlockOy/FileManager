@@ -17,7 +17,7 @@ public class FunctionRenFile {
 	public void renFile() throws SQLException, IOException {
 
 		// 选择路径
-		System.out.println("Enter the path...");
+		System.out.println("请输入路径...");
 		Scanner dir = new Scanner(System.in);
 		String directory = dir.nextLine();
 
@@ -28,6 +28,7 @@ public class FunctionRenFile {
 				+ directory + "';";
 		ResultSet resultSet = statement.executeQuery(sqlstatement);
 
+		System.out.println("==============================================================");
 		// 数据库中找到FileKey的值之后和每个文件的那个值进行对比
 		while (resultSet.next()) {
 
@@ -45,7 +46,7 @@ public class FunctionRenFile {
 
 			fn_db = resultSet.getString("FileName");
 			fk_db = resultSet.getString("FileKey");
-
+			
 			for (int i = 0; i < files.size(); i++) {
 				// 取单个对象
 				Path fp = files.get(i).toPath();
@@ -57,8 +58,8 @@ public class FunctionRenFile {
 					String fn_fs = files.get(i).getName();
 					if (!(fn_fs.equals(fn_db))) {
 						System.out
-								.println("According to the data in Database, change '"
-										+ fn_fs + "' to '" + fn_db + "'.");
+								.println("根据数据库里的记录，将 '"
+										+ fn_fs + "' 更名为 '" + fn_db + "'.");
 						File newFile = new File(directory + fn_db);
 						files.get(i).renameTo(newFile);
 						// files.get(i) = newFile;
@@ -67,5 +68,6 @@ public class FunctionRenFile {
 				}
 			}
 		}
+		System.out.println("==============================================================");
 	}
 }

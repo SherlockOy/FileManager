@@ -1,9 +1,16 @@
 package com.java.big4;
 
+/*
+ * 工具类，提供静态方法
+ * */
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.Scanner;
+
+import com.mysql.jdbc.StringUtils;
 
 public class Utils {
 public static Connection getConn(){
@@ -36,16 +43,60 @@ public static void closeConn(ResultSet rs,PreparedStatement pstmt, Connection co
 }
 
 public static void welcome(){
+	//静态方法调用，用以输出初始提示语句
+	System.out.println("==============================================================");
 	System.out.println("Please choose the funtion you want to use:");
 	System.out.println("(1) stands for 'ListType'");
 	System.out.println("(2) stands for 'ListFile'");
 	System.out.println("(3) stands for 'CleanFile'");
 	System.out.println("(4) stands for 'RenFile'");
-	System.out.println("(5) stands for 'ScanFile");
-	System.out.println("(6) stands for 'Search File By Name'");
-	System.out.println("(7) stands for 'Search File By Content");
+	System.out.println("(5) stands for 'ScanFile'");
+	System.out.println("(6) stands for 'Search File By Content");
+	System.out.println("(7) stands for 'Quit'");
+	System.out.println("Now pick your choice, end with 'enter' key...");
 	
-	System.out.println("now enter your choice, end with 'return' key...");
 }
 
+public static void backtochoose(){
+	//按回车键继续，提高用户体验
+	System.out.println("Press enter to continue...");
+	Scanner back = new Scanner(System.in);
+	String goback = back.nextLine();
+	while(!goback.equals("")){
+		break;
+	}
+}
+
+public static boolean wildcardMatch(String pattern, String str) {
+    int patternLength = pattern.length();
+    int strLength = str.length();
+    int strIndex = 0;
+    char ch;
+    for (int patternIndex = 0; patternIndex < patternLength; patternIndex++) {
+        ch = pattern.charAt(patternIndex);
+        if (ch == '*') {
+            //通配符星号*表示可以匹配任意多个字符
+            while (strIndex < strLength) {
+                if (wildcardMatch(pattern.substring(patternIndex + 1),
+                        str.substring(strIndex))) {
+                    return true;
+                }
+                strIndex++;
+            }
+        } else if (ch == '?') {
+            //通配符问号?表示匹配任意一个字符
+            strIndex++;
+            if (strIndex > strLength) {
+                //表示str中已经没有字符匹配?了。
+                return false;
+            }
+        } else {
+            if ((strIndex >= strLength) || (ch != str.charAt(strIndex))) {
+                return false;
+            }
+            strIndex++;
+        }
+    }
+    return (strIndex == strLength);
+}
 }

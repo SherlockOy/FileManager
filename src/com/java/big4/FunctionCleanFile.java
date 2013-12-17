@@ -27,12 +27,12 @@ public class FunctionCleanFile {
 
 	public void cleanfile() throws SQLException {
 
-		System.out.println("Enter the directory you want to clean, please...");
+		System.out.println("请输入您想要清理的路径...");
 		Scanner dir = new Scanner(System.in);
 		String directory = dir.nextLine();
 		// 提示输入待查询内容
 
-		System.out.println("Searching...\n");
+		System.out.println("清理中...\n");
 		// 连接数据库
 		Connection conn = Utils.getConn();
 		Statement statement = conn.createStatement();
@@ -88,16 +88,17 @@ public class FunctionCleanFile {
 
 		}
 		
+		System.out.println("==============================================================");
+		
 		for (int i = 0;i < unmatchFile.size();i++){
 			
 			File f = new File(directory+unmatchFile.get(i));
 			System.out.println(f.getName());
 			f.delete();
-			
+		
 		}
 		
-		
-		System.out.println("All results are listed.");
-
+		System.out.println("清理掉的文件已全部列出...");
+		System.out.println("==============================================================");
 	}
 }

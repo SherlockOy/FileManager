@@ -21,7 +21,7 @@ public class FileContentSearcher {
 				FileContentCompare fnc=new FileContentCompare(f.toString(),name.toString());
 				if(fnc.result())
 				{
-					System.out.println("search success"+"\n"+"Flie is under direction: "+f.toString());
+					System.out.println("搜索成功"+"\n"+"文件存储于: "+f.toString());
 					Date date=new Date(f.lastModified());
 					OutPrint nodedata=new OutPrint(f.getName().toString(),f.toString(),f.length(),date);
 					nodedata.printAll();

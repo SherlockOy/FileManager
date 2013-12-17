@@ -33,7 +33,7 @@ public class FileNameSearcher {
 				FileNameCompare fnc=new FileNameCompare(f.getName().toString(),name.toString());
 				if(fnc.result())
 				{
-					System.out.println("search success"+"\n"+"Flie is under direction: "+f.toString());
+					System.out.println("搜索成功"+"\n"+"文件存储在: "+f.toString());
 					Date date=new Date(f.lastModified());
 					OutPrint nodedata=new OutPrint(f.getName().toString(),f.toString(),f.length(),date);
 					nodedata.printAll();
@@ -53,6 +53,6 @@ public class FileNameSearcher {
 	}
 	public void outPrint()
 	{
-			System.out.println("search finished, all results are listed.");
+			System.out.println("搜索完毕, 所有结果均已列出...");
 	}
 }

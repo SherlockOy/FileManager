@@ -22,9 +22,11 @@ public class ListType {
 		System.out.println("请输入文件类型,查找全部则输入'*'");
 		String type = input.next();
 		if ("*".equals(type)) {
+			System.out.println("==============================================================");
 			listType(f);
 			formetSize(getDirSize(f));
 		} else {
+			System.out.println("==============================================================");
 			formetSize(fileType(type, f));
 		}
 

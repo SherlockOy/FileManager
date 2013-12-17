@@ -18,7 +18,7 @@ public class FunctionScanFile {
 
 		// 输入路径
 
-		System.out.println("Enter the path...");
+		System.out.println("请输入路径...");
 		Scanner dir = new Scanner(System.in);
 		String directory = dir.nextLine();
 
@@ -49,7 +49,7 @@ public class FunctionScanFile {
 		/*
 		 * 遍历files里面的file对象的fk值，如果找到和数据库数据匹配的，不做操作，如果没找到，获取信息插入数据库
 		 */
-
+		System.out.println("==============================================================");
 		for (int i = 0; i < files.size(); i++) {
 
 			// 读取files路径下的子文件对象f，建立Path对象
@@ -76,7 +76,7 @@ public class FunctionScanFile {
 				String fn_fs = f.getName();
 				Date lastModified = new Date(f.lastModified());
 				System.out
-						.println("Insert record '" + fn_fs + "' to Database.");
+						.println("已插入 '" + fn_fs + "' 到数据库.");
 				String sqlinsert = "INSERT INTO `test`.`FileList` (`FileName`, `FileDir`, `FileKey`, `LastModified`) VALUES ('"
 						+ fn_fs
 						+ "', '"
@@ -89,6 +89,7 @@ public class FunctionScanFile {
 			}
 
 		}
-		System.out.println("Scanning finished, all new files are recorded in the database.");
+		System.out.println("扫描结束，所有新文件均已在数据库中备案.");
+		System.out.println("==============================================================");
 	}
 }
